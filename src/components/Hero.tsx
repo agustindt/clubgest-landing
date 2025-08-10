@@ -53,7 +53,7 @@ export default function Hero() {
 <div className="hidden md:block">
   <div className="relative h-[340px] w-full rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
     <Image
-      src="/images/ClubGest.png"
+      src="/images/ClubGest.svg"
       alt="Vista de ClubGest"
       fill
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 500px"

@@ -1,40 +1,51 @@
 'use server'
 
 import { Resend } from 'resend'
+import { z } from 'zod'
 
 /**
- * Variables necesarias en .env.local:
- *
- * RESEND_API_KEY=tu_api_key_de_resend
- * CONTACT_TO=tuemail@tu-dominio.com                # destino (vos)
- * CONTACT_FROM=ClubGest <contact@tu-dominio.com>   # remitente verificado en Resend
+ * Necesario en .env.local
+ * RESEND_API_KEY=...
+ * CONTACT_TO=tuemail@tu-dominio.com
+ * CONTACT_FROM="ClubGest <contact@tu-dominio.com>"
  */
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-type ActionState = {
-  ok: boolean
-  message: string
-}
+const ContactSchema = z.object({
+  name: z.string().min(2, 'Completá tu nombre.'),
+  email: z.string().email('Email inválido.'),
+  club: z.string().optional().default(''),
+  message: z.string().min(10, 'Contanos un poco más en el mensaje.'),
+  website: z.string().max(0).optional(),  // honeypot (debe quedar vacío)
+  ts: z.coerce.number().optional(),       // timestamp de carga
+})
 
-export async function sendContact(prevState: ActionState, formData: FormData): Promise<ActionState> {
-  // honeypot anti-spam
-  const honey = (formData.get('website') as string | null)?.trim()
-  if (honey) return { ok: false, message: 'Spam detectado.' }
+type ActionState = { ok: boolean; message: string }
 
-  const name = (formData.get('name') as string | null)?.trim() || ''
-  const email = (formData.get('email') as string | null)?.trim() || ''
-  const club = (formData.get('club') as string | null)?.trim() || ''
-  const message = (formData.get('message') as string | null)?.trim() || ''
+export async function sendContact(prev: ActionState, formData: FormData): Promise<ActionState> {
+  // Parseo + validación
+  const data = Object.fromEntries(formData) as Record<string, string>
+  const parsed = ContactSchema.safeParse(data)
 
-  if (!name || !email || !message) {
-    return { ok: false, message: 'Completá nombre, email y mensaje.' }
+  // Honeypot
+  if (data.website && data.website.trim() !== '') {
+    return { ok: false, message: 'Spam detectado.' }
   }
 
-  // Validaciones mínimas
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-  if (!emailOk) return { ok: false, message: 'Email inválido.' }
-  if (message.length < 10) return { ok: false, message: 'Contanos un poco más en el mensaje.' }
+  // Anti-bots rápidos (>= 3s en la vista)
+  const now = Date.now()
+  const ts = Number(data.ts ?? 0)
+  if (!Number.isNaN(ts) && now - ts < 3000) {
+    return { ok: false, message: 'Por favor, revisá los datos antes de enviar.' }
+  }
+
+  if (!parsed.success) {
+    const msg = parsed.error.issues[0]?.message ?? 'Datos inválidos.'
+    return { ok: false, message: msg }
+  }
+
+  const { name, email, club, message } = parsed.data
 
   try {
     await resend.emails.send({
@@ -48,8 +59,7 @@ Email: ${email}
 Club: ${club}
 Mensaje:
 ${message}`,
-      // Si querés HTML:
-      // html: `<p><b>Nombre:</b> ${name}</p><p><b>Email:</b> ${email}</p><p><b>Club:</b> ${club}</p><p>${message.replace(/\n/g, '<br/>')}</p>`
+      // Si querés HTML, podés agregarlo acá.
     })
 
     return { ok: true, message: '¡Gracias! Te responderemos a la brevedad.' }

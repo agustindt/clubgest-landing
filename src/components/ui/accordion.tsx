@@ -12,7 +12,7 @@ export function AccordionItem({ value, children, className }: { value: string; c
   return <div className={cn("py-2", className)} data-value={value}>{children}</div>
 }
 
-export function AccordionTrigger({ children, className }: { children: React.ReactNode; className?: string }) {
+export function AccordionTrigger({ children}: { children: React.ReactNode; className?: string }) {
   return (
     <summary
       className={cn(

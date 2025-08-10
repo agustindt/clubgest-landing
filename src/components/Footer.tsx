@@ -5,15 +5,18 @@ export default function Footer() {
     <footer className="border-t border-white/10 bg-[#0b1f3a]">
       <div className="container mx-auto grid gap-6 px-6 py-10 md:grid-cols-3">
         <div>
-          {/* Logo */}
-          <Image
-            src="/images/Logo.png"
-            alt="ClubGest Logo"
-            width={40}
-            height={40}
-            className="mb-3"
-            priority
-          />
+          {/* Logo largo igual que en el header */}
+<div className="relative h-6 w-32 mb-3">
+  <Image
+    src="/images/LogoHeader.png"
+    alt="ClubGest Logo"
+    fill
+    className="object-contain"
+    priority
+    sizes="(max-width: 768px) 128px, 160px"
+  />
+</div>
+
           <div className="text-ink/80">
             ClubGest © {new Date().getFullYear()}
           </div>

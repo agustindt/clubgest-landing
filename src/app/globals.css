@@ -1,35 +1,24 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+
+@theme {
+  --color-primary: #0b1f3a;
+  --color-secondary: #fbbf24;
+  --color-accent: #34d399;
+  --color-ink: #e2e8f0;
+}
 
 @keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -10px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
 }
 
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
-.animate-slideDown {
-  animation: slideDown 0.3s ease forwards;
-}
-
-.animate-scaleIn {
-  animation: scaleIn 0.25s ease forwards;
-}
+.animate-slideDown { animation: slideDown 0.3s ease forwards; }
+.animate-scaleIn { animation: scaleIn 0.25s ease forwards; }
 
 html { scroll-behavior: smooth; }

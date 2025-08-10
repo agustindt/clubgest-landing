@@ -1,20 +1,20 @@
 const plans = [
   {
     name: "Inicial",
-    price: "USD 12 / mes",
+    price: "USD XX / mes",
     desc: "Para clubes chicos que recién empiezan.",
     features: ["Hasta 100 jugadores", "Inscripciones y pagos", "Calendario y notificaciones"],
   },
   {
     name: "Recomendado",
     highlight: true,
-    price: "USD 24 / mes",
+    price: "USD XX / mes",
     desc: "El balance ideal para la mayoría.",
     features: ["Hasta 300 jugadores", "Reportes y estadísticas", "Soporte prioritario"],
   },
   {
     name: "Pro",
-    price: "USD 49 / mes",
+    price: "USD XX / mes",
     desc: "Para clubes grandes o multi-deporte.",
     features: ["300+ jugadores", "Módulos avanzados", "Soporte dedicado"],
   },

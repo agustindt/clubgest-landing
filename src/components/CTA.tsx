@@ -38,7 +38,7 @@ export default function CTA() {
           transition={{ duration: 0.35, delay: 0.15, type: "tween", ease: "easeOut" }}
         >
           <a
-            href="/contact" // ← lleva al form de contacto
+            href="/contact"
             className="inline-block rounded-xl bg-secondary px-8 py-4 text-lg font-semibold text-black hover:bg-secondary/90"
           >
             Solicitar demo

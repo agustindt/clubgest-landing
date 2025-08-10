@@ -1,35 +1,36 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
 import Image from "next/image"
+import { useState } from "react"
 
 export default function Header() {
   const [open, setOpen] = useState(false)
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#0b1f3a]/70 backdrop-blur">
-      <div className="container mx-auto flex items-center justify-between px-6 py-3">
+      {/* altura fija del header */}
+      <div className="container mx-auto flex h-14 items-center justify-between px-6">
         <div className="flex items-center gap-3">
-          {/* Logo con box amarilla */}
-          <div className="relative inline-block h-8 w-8 rounded bg-secondary overflow-hidden">
-            <Image
-              src="/images/Logo.png"
-              alt="ClubGest Logo"
-              fill
-              sizes="32px"
-              className="object-contain"
-              priority
-            />
-          </div>
-          <Link href="/" className="text-ink text-lg font-bold">ClubGest</Link>
+          <Link href="/" className="flex items-center gap-3" aria-label="Ir al inicio">
+            {/* logo alto controlado y ancho largo */}
+            <div className="relative h-10 w-56 md:w-64 lg:w-72">
+              <Image
+                src="/images/LogoHeader.png"
+                alt="ClubGest"
+                fill
+                className="object-fill"
+                priority
+                sizes="(max-width: 768px) 224px, (max-width: 1200px) 256px, 288px"
+              />
+            </div>
+          </Link>
         </div>
 
         <nav className="hidden md:flex items-center gap-6 text-ink/80">
           <a href="#features" className="hover:text-ink">Características</a>
           <a href="#pricing" className="hover:text-ink">Precios</a>
           <a href="#faq" className="hover:text-ink">FAQ</a>
-          {/* CTA siempre visible en el header */}
           <a
             href="#contact"
             className="rounded-lg bg-secondary px-4 py-2 font-semibold text-black hover:bg-secondary/90"
@@ -46,7 +47,6 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile sheet simple */}
       {open && (
         <div className="md:hidden border-t border-white/10 bg-[#0b1f3a]/95">
           <div className="container mx-auto flex flex-col gap-2 px-6 py-4">
