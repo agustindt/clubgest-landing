@@ -55,9 +55,9 @@ export default function CTA() {
           ¿Preferís email?{" "}
           <a
             className="underline decoration-accent/70 underline-offset-4 hover:text-ink"
-            href="mailto:hola@clubgest.com?subject=Quiero%20una%20demo%20de%20ClubGest"
+            href="mailto:clubgestonline@gmail.com?subject=Quiero%20una%20demo%20de%20ClubGest"
           >
-            hola@clubgest.com
+            clubgestonline@gmail.com
           </a>
         </motion.p>
       </div>

@@ -4,6 +4,7 @@ import FeatureSections from "@/components/FeatureSections" // las secciones por 
 import Pricing from "@/components/Pricing"
 import CTA from "@/components/CTA"
 import FAQ from "@/components/FAQ"
+import FirstQuarterSection from "@/components/FirstQuarterSection"
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
         <Hero />
         <Features />
         <FeatureSections />
+        <FirstQuarterSection />
         <Pricing />
         <CTA />
         <FAQ />
