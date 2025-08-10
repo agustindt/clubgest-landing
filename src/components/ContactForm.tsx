@@ -41,8 +41,9 @@ export default function ContactForm() {
       reset();
       alert("¡Mensaje enviado! Te responderemos a la brevedad.");
       router.push("/");
-    } catch (e: any) {
-      alert(e.message || "No se pudo enviar el mensaje. Probá de nuevo.");
+    } catch (e: unknown) {
+      const errorMessage = e instanceof Error ? e.message : "No se pudo enviar el mensaje. Probá de nuevo.";
+      alert(errorMessage);
     } finally {
       setLoading(false);
     }
